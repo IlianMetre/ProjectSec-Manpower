@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{%block title%}Admin-Panel{%endblock%}
+
+
+{%block content%}
+
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4">
+        <h1 class="text-2xl font-bold text-center text-gray-700 my-6">IP User Management</h1>
+
+        <div class="mb-8">
+            <h2 class="text-xl font-semibold mb-3">Create New IP User</h2>
+            <form action="/create-ip-user" method="post">
+                <input type="text" name="firstname" placeholder="First Name" class="p-2 border border-gray-300 rounded">
+                <input type="text" name="prefix" placeholder="Prefix" class="p-2 border border-gray-300 rounded">
+                <input type="text" name="lastname" placeholder="Last Name" class="p-2 border border-gray-300 rounded">
+                <input type="email" name="email" placeholder="Email" class="p-2 border border-gray-300 rounded">
+                <input type="text" name="ip" placeholder="IP Address" class="p-2 border border-gray-300 rounded">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Create</button>
+            </form>
+        </div>
+
+        <div>
+            <h2 class="text-xl font-semibold mb-3">IP Users</h2>
+            <table class="min-w-full bg-white">
+                <thead class="bg-gray-800 text-white">
+                    <tr>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">First Name</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Prefix</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Last Name</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Email</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">IP Address</th>
+                        <th class="text-left py-3 px-4 uppercase font-semibold text-sm">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    {% for user in ip_users %}
+                        <tr>
+                            <td class="text-left py-3 px-4">{{ user[1] }}</td> <!-- first Name -->
+                            <td class="text-left py-3 px-4">{{ user[2] }}</td> <!-- prefix -->
+                            <td class="text-left py-3 px-4">{{ user[3] }}</td> <!-- last Name -->
+                            <td class="text-left py-3 px-4">{{ user[4] }}</td> <!-- email -->
+                            <td class="text-left py-3 px-4">{{ user[5] }}</td> <!-- ip address -->
+                            <td class="text-left py-3 px-4">
+                                <a href="{{ url_for('auth.edit_ip_user', user_id=user[0]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded text-xs">Edit</a>
+                                <a href="{{ url_for('auth.delete_ip_user', user_id=user[0]) }}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-xs">Delete</a> 
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+
+{%endblock%}
