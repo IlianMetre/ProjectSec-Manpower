@@ -4,5 +4,5 @@ def connect_to_database():
         "port" : "3306",
         "database" : "manpowerdb",
         "user" : "root",
-        "password": "Vergeten01!"        
+        "password": "root"        
     }
